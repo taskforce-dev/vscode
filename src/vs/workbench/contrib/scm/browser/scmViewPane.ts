@@ -1307,11 +1307,12 @@ class SCMInputWidget extends Disposable {
 
 		// Keep model in sync with API
 		textModel.setValue(input.value);
+
 		this.repositoryDisposables.add(input.onDidChange(value => {
 			if (value === textModel.getValue()) { // circuit breaker
 				return;
 			}
-			textModel.setValue(value);
+			textModel.setValue(input.value);
 			this.inputEditor.setPosition(textModel.getFullModelRange().getEndPosition());
 		}));
 
@@ -1381,7 +1382,7 @@ class SCMInputWidget extends Disposable {
 		@IKeybindingService private keybindingService: IKeybindingService,
 		@IConfigurationService private configurationService: IConfigurationService,
 		@IInstantiationService instantiationService: IInstantiationService,
-		@IContextViewService private readonly contextViewService: IContextViewService,
+		@IContextViewService private readonly contextViewService: IContextViewService
 	) {
 		super();
 
